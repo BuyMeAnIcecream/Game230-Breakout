@@ -1,7 +1,7 @@
 
 #include <vector>
-#include "MaRect.h"
-
+#include "Paddle.h"
+#include "Block.h"
 #include <random>
 #include <iostream>
 #include <SFML/Network.hpp>
@@ -30,7 +30,7 @@ public:
 		window = win;
 		pressToRestart = false;
 	}
-
+/*
 	void CheckWin() {
 
 		if (pad1->GetScore() > 4) {
@@ -116,6 +116,7 @@ public:
 			pad2->IncrementScore();
 		}
 	}
+	*/
 };
 
 
@@ -126,18 +127,18 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
-	MaRect* p1 = new MaRect(Vector2f(SCREEN_WIDTH - PADDLE_THICKNESS, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
-	MaRect* p2 = new MaRect(Vector2f(0, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
-	MaRect* brick = new MaRect(Vector2f(SCREEN_WIDTH / 1.5, SCREEN_HEIGHT / 1.5), PADDLE_THICKNESS, PADDLE_LENGTH, b);
-
+	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH - PADDLE_THICKNESS, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
+	//MaRect* p2 = new MaRect(Vector2f(0, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
+	//MaRect* brick = new MaRect(Vector2f(SCREEN_WIDTH / 1.5, SCREEN_HEIGHT / 1.5), PADDLE_THICKNESS, PADDLE_LENGTH, b);
+	Block* block = new Block(Vector2f(200, 200), 100, 50, b, 1);
 	Ball* b2 = new Ball();
-	GameManager* gm = new GameManager(b, b2, p1, p2, &window);
+	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;
 	vector<MaShape*> sceneObjects;
 	sceneObjects.push_back(b);
 	sceneObjects.push_back(p1);
-	sceneObjects.push_back(p2);
-	sceneObjects.push_back(brick);
+	//sceneObjects.push_back(p2);
+	sceneObjects.push_back(block);
 	while (window.isOpen())
 	{
 
@@ -169,10 +170,12 @@ int main()
 		}
 
 		window.display();
+		/*
 		if (gm->pressToRestart) {
 			gm->PreRestart();
 			clock.restart().asSeconds();
 		}
+		*/
 
 	}
 	return 0;
