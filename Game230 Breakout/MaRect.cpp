@@ -18,11 +18,11 @@ using namespace std;
 			ball->BounceOff(rect->getPosition().y + PADDLE_LENGTH / 2);
 	}
 	*/
-	void MaRect::Render(RenderWindow* window) {
+	void MaRect::render(RenderWindow* window) {
 		window->draw(*rect);
 	}
 	
-	bool MaRect::CheckCollision(Ball* b) {
+	bool MaRect::checkCollision(Ball* b) {
 		if (rect->getGlobalBounds().intersects(b->GetGlobalBounds()))
 			return true;
 		return false;

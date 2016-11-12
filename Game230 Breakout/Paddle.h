@@ -6,7 +6,8 @@ private:
 
 public:
 	Paddle(Vector2f pos, float thic, float length, Ball* b);
-	void MaRect::Update(float dt);
-	void Reset();
-//	void MaRect::Render(RenderWindow* window);
+	void MaRect::update(float dt);
+	void reset();
+	void holdABall();
+//	void MaRect::render(RenderWindow* window);
 };

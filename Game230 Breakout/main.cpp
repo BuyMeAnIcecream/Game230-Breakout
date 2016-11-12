@@ -67,8 +67,8 @@ public:
 
 	void PreRestart() {
 		if (pad1->GetScore() > 4) {
-			ball2->Reset();
-			ball->Reset();
+			ball2->reset();
+			ball->reset();
 			pad1->HardReset();
 			pad2->HardReset();
 			while (!Keyboard::isKeyPressed(Keyboard::Space)) {
@@ -83,8 +83,8 @@ public:
 			pressToRestart = false;
 		}
 		if (pad2->GetScore() > 4) {
-			ball2->Reset();
-			ball->Reset();
+			ball2->reset();
+			ball->reset();
 			pad1->HardReset();
 			pad2->HardReset();
 			pressToRestart = false;
@@ -101,18 +101,18 @@ public:
 	}
 	void BallWhereAreYou() {
 		if (ball->getPosition().x < 0 || ball2->getPosition().x < 0) {
-			ball->Reset();
-			ball2->Reset();
-			pad1->Reset();
-			pad2->Reset();
+			ball->reset();
+			ball2->reset();
+			pad1->reset();
+			pad2->reset();
 			pad1->IncrementScore();
 		}
 		if (ball->getPosition().x > SCREEN_WIDTH || ball2->getPosition().x>  SCREEN_WIDTH)
 		{
-			ball->Reset();
-			ball2->Reset();
-			pad1->Reset();
-			pad2->Reset();
+			ball->reset();
+			ball2->reset();
+			pad1->reset();
+			pad2->reset();
 			pad2->IncrementScore();
 		}
 	}
@@ -127,10 +127,10 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
-	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH - PADDLE_THICKNESS, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
+	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b);
 	//MaRect* p2 = new MaRect(Vector2f(0, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
 	//MaRect* brick = new MaRect(Vector2f(SCREEN_WIDTH / 1.5, SCREEN_HEIGHT / 1.5), PADDLE_THICKNESS, PADDLE_LENGTH, b);
-	Block* block = new Block(Vector2f(200, 200), 100, 50, b, 1);
+	Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
 	Ball* b2 = new Ball();
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;
@@ -158,15 +158,15 @@ int main()
 		//
 		//gm->BallWhereAreYou();
 		//gm->CheckWin();
-		//b->Render(&window);
-		//b2->Render(&window);
-		//p1->Render(&window);
-		//p2->Render(&window);
-		//brick->Render(&window);
+		//b->render(&window);
+		//b2->render(&window);
+		//p1->render(&window);
+		//p2->render(&window);
+		//brick->render(&window);
 		for each (MaShape* ms in sceneObjects)
 		{
-			ms->Update(dt);
-			ms->Render(&window);
+			ms->update(dt);
+			ms->render(&window);
 		}
 
 		window.display();

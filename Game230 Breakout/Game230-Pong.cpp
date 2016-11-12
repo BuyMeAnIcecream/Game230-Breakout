@@ -67,8 +67,8 @@ public:
 
 	void PreRestart() {
 		if (pad1->GetScore() > 4) {
-			ball2->Reset();
-			ball->Reset();
+			ball2->reset();
+			ball->reset();
 			pad1->HardReset();
 			pad2->HardReset();
 			while (!Keyboard::isKeyPressed(Keyboard::Space)) {
@@ -83,8 +83,8 @@ public:
 			pressToRestart = false;
 		}
 		if (pad2->GetScore() > 4) {
-			ball2->Reset();
-			ball->Reset();
+			ball2->reset();
+			ball->reset();
 			pad1->HardReset();
 			pad2->HardReset();
 			pressToRestart = false;
@@ -102,19 +102,19 @@ public:
 	void BallWhereAreYou() {
 		if (ball->getPosition().x < 0 || ball2->getPosition().x < 0) {
 		
-			ball->Reset();
-			ball2->Reset();
-			pad1->Reset();
-			pad2->Reset();
+			ball->reset();
+			ball2->reset();
+			pad1->reset();
+			pad2->reset();
 			pad1->IncrementScore();
 		}
 		if (ball->getPosition().x > SCREEN_WIDTH || ball2->getPosition().x>  SCREEN_WIDTH)
 		{
 			
-			ball->Reset();
-			ball2->Reset();
-			pad1->Reset();
-			pad2->Reset();
+			ball->reset();
+			ball2->reset();
+			pad1->reset();
+			pad2->reset();
 			pad2->IncrementScore();
 
 		}
@@ -191,11 +191,11 @@ int main()
 		else p2->Update(dt, Player::CheckInputP2());
 		gm->BallWhereAreYou();
 		gm->CheckWin();
-		b->Render(&window);
-		b2->Render(&window);
-		p1->Render(&window);
-		p2->Render(&window);
-		brick->Render(&window);
+		b->render(&window);
+		b2->render(&window);
+		p1->render(&window);
+		p2->render(&window);
+		brick->render(&window);
 		
 		window.display();
 		if (gm->pressToRestart) {

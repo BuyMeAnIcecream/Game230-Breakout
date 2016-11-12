@@ -7,6 +7,6 @@ private:
 public:
 	void takeDamage(int d);
 	Block(Vector2f pos, float thic, float length, Ball* b, int health);
-	void MaRect::Update(float dt);
+	void MaRect::update(float dt);
 
 };

@@ -1,7 +1,10 @@
 #include "Block.h";
 
-void Block::Update(float dt) {
-	if (CheckCollision(ball)) {}
+void Block::update(float dt) {
+	if (checkCollision(ball)) {
+		ball->bounceOffBlock(rect);
+		takeDamage(1);
+	}
 	//	ball->BounceOff(rect->getPosition().y + PADDLE_LENGTH / 2);      TODO flip direction
 	
 }

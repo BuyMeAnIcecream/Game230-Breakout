@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "MaShape.h"
+//#include "Paddle.h"
 class Ball :public MaShape {
 private:
 	CircleShape* circle;
@@ -13,23 +14,21 @@ private:
 	Sound sound;
 	float vel;
 	Vector2f direction;
+	bool sited;
 public:
-//	Paddle* p1;
-//	Paddle* p2;
-//	float angle = 0.f;
-//	float ballSpeed = 100;
-//	Paddle* brick;
-
 	FloatRect GetGlobalBounds();
 	Ball();
-	void Update(float dt);
+	void update(float dt);
 	Vector2f getPosition();
-	void Render(sf::RenderWindow* wind);
-	void Reset();
-	void BounceOff(float padCenterY);
-	void CheckBorders();
+	void render(sf::RenderWindow* wind);
+	void reset();
+	void bounceOffPaddle(float padCenterY);
+	void checkBorders();
 //	void CheckPaddle(Paddle * p);
-	void FlipYVel();
-	void FlipXVel();
-	Vector2f RandomizeAngle();
+	void flipYVel();
+	void flipXVel();
+	Vector2f randomizeAngle();
+	void bounceOffBlock(RectangleShape* rs);
+	//void sitOnThePaddle(Paddle p);
+	void stayHere(Vector2f position);
 };
