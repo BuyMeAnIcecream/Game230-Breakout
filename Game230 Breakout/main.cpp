@@ -125,13 +125,14 @@ public:
 
 int main()
 {
+	font.loadFromFile("arial.ttf");
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
-	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b);
+	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b, new Player(3, &font));
 	//MaRect* p2 = new MaRect(Vector2f(0, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
 	//MaRect* brick = new MaRect(Vector2f(SCREEN_WIDTH / 1.5, SCREEN_HEIGHT / 1.5), PADDLE_THICKNESS, PADDLE_LENGTH, b);
 	Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
-	Ball* b2 = new Ball();
+//	Ball* b2 = new Ball();
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;
 	vector<MaShape*> sceneObjects;
@@ -150,19 +151,7 @@ int main()
 		}
 		window.clear();
 		float dt = clock.restart().asSeconds();
-		//b->Update(dt);
-		////		b2->Update(dt);
-		//p1->Update(dt, Player::CheckInputP1());
-		//brick->Update(dt, Vector2f(0.f, 0.f));
-  //      p2->Update(dt, Vector2f(0, StupidAI::WhereDoIGo(b, b2, p2)));
-		//
-		//gm->BallWhereAreYou();
-		//gm->CheckWin();
-		//b->render(&window);
-		//b2->render(&window);
-		//p1->render(&window);
-		//p2->render(&window);
-		//brick->render(&window);
+
 		for each (MaShape* ms in sceneObjects)
 		{
 			ms->update(dt);

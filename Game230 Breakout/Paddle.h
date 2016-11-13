@@ -1,13 +1,17 @@
 #pragma once
 #include  "MaRect.h"
+#include "Player.h"
 class Paddle: public MaRect {
 private:
 	Vector2f hereIStart;
-
+	Player* player;
+	void displayHealth(Vector2f position);
 public:
-	Paddle(Vector2f pos, float thic, float length, Ball* b);
+	Paddle(Vector2f pos, float thic, float length, Ball* b, Player* p);
 	void MaRect::update(float dt);
 	void reset();
-	void holdABall();
+	//void holdABall();
+	friend void Ball::stayHere(Vector2f position);
+	friend void Ball::sendFlying();
 //	void MaRect::render(RenderWindow* window);
 };

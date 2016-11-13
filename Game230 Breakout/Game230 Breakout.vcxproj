@@ -158,13 +158,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaRect.cpp" />
     <ClCompile Include="Paddle.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="MaShape.h" />
     <ClInclude Include="MaRect.h" />
     <ClInclude Include="Paddle.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

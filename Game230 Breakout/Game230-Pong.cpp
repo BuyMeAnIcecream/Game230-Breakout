@@ -142,9 +142,9 @@ public:
 
 
 
-class Player{ 
+class PlayerControl{ 
 public:
-	static Vector2f CheckInputP1() {
+	static Vector2f checkControlInputP1() {
 		if (Keyboard::isKeyPressed(Keyboard::Up)) return Vector2f(0, -paddleSpeed);
 		else if(Keyboard::isKeyPressed(Keyboard::Down)) return Vector2f(0, paddleSpeed);
 		else return Vector2f(0, 0);
@@ -185,10 +185,10 @@ int main()
 		float dt = clock.restart().asSeconds();
 		b->Update(dt);
 //		b2->Update(dt);
-		p1->Update(dt, Player::CheckInputP1());
+		p1->Update(dt, PlayerControl::checkControlInputP1());
 		brick->Update(dt, Vector2f(0.f, 0.f));
 		if(vsAI)p2->Update(dt, Vector2f(0,StupidAI::WhereDoIGo(b,b2, p2)));
-		else p2->Update(dt, Player::CheckInputP2());
+		else p2->Update(dt, PlayerControl::CheckInputP2());
 		gm->BallWhereAreYou();
 		gm->CheckWin();
 		b->render(&window);

@@ -14,8 +14,10 @@ private:
 	Sound sound;
 	float vel;
 	Vector2f direction;
-	bool sited;
+	
+	
 public:
+	bool sited;
 	FloatRect GetGlobalBounds();
 	Ball();
 	void update(float dt);
@@ -31,4 +33,6 @@ public:
 	void bounceOffBlock(RectangleShape* rs);
 	//void sitOnThePaddle(Paddle p);
 	void stayHere(Vector2f position);
+	void sendFlying();
+	void speedUp();
 };

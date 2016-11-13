@@ -1,7 +1,7 @@
 #include "Ball.h"
 using namespace std;
 static const float BALL_VELOCITY = 400.f;
-static const int BALL_RADIUS = 10;
+
 	Ball::Ball() {
 		circle = new sf::CircleShape(BALL_RADIUS);
 		circle->setFillColor(sf::Color::Red);
@@ -31,13 +31,10 @@ static const int BALL_RADIUS = 10;
 			circle->setPosition(tempPos);
 			return;
 		}
-		//   LISTEN TO INPUT IF SPACE -
-		if (space)
-			sited = false;
-		
 	}
-
-
+	//	/*void Ball::stayHere(Vector2f position) {
+	//		this->circle->setPosition(position);
+	//}*/
 	
 	void Ball::render(sf::RenderWindow* wind) {
 		wind->draw(*circle);
@@ -110,3 +107,9 @@ static const int BALL_RADIUS = 10;
 		return Vector2f(Xvel/100.f, Yvel/100.f);
 
 	}
+
+	void Ball::speedUp() {
+		vel *= 1.1f;
+	}
+
+
