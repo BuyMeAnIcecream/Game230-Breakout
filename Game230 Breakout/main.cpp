@@ -30,6 +30,11 @@ public:
 		window = win;
 		pressToRestart = false;
 	}
+
+	bool anybodyAlive() {
+		if (pad1 == NULL && pad2 == NULL)
+			return true;
+	};
 /*
 	void CheckWin() {
 
@@ -129,8 +134,6 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
 	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b, new Player(3, &font));
-	//MaRect* p2 = new MaRect(Vector2f(0, SCREEN_HEIGHT / 2), PADDLE_THICKNESS, PADDLE_LENGTH, b);
-	//MaRect* brick = new MaRect(Vector2f(SCREEN_WIDTH / 1.5, SCREEN_HEIGHT / 1.5), PADDLE_THICKNESS, PADDLE_LENGTH, b);
 	Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
 //	Ball* b2 = new Ball();
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);

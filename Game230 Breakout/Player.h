@@ -9,14 +9,15 @@ using namespace sf;
 class Player {
 private:
 	int lives;
-	
+	Font* f;
 	int score;
-	Text t;
+	
 //	Font* font;
 public:
+	Text t;
 	bool isAlive;
 	Player(int health, Font* font);
 	~Player();
 	void looseHealth();
-	void displayHealth(Vector2f position);
+	void updateHealthText(Vector2f position);
 };

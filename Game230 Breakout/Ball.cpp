@@ -22,15 +22,20 @@ static const float BALL_VELOCITY = 400.f;
 	Vector2f Ball::getPosition() {
 		return circle->getPosition();
 	}
-		void Ball::update(float dt) {
-		checkBorders();
-		Vector2f tempPos = getPosition();
-		tempPos.x += direction.x*vel*dt;
-		tempPos.y += direction.y*vel*dt;
-		if (!sited) {
-			circle->setPosition(tempPos);
-			return;
+	
+	
+	void Ball::update(float dt) {
+	checkBorders();
+	whereAmI();
+	Vector2f tempPos = getPosition();
+	tempPos.x += direction.x*vel*dt;
+	tempPos.y += direction.y*vel*dt;
+	
+	if (!sited) {
+		circle->setPosition(tempPos);
+		return;
 		}
+	
 	}
 	//	/*void Ball::stayHere(Vector2f position) {
 	//		this->circle->setPosition(position);
@@ -44,6 +49,16 @@ static const float BALL_VELOCITY = 400.f;
 		
 //		direction = randomizeAngle();
 		sited = true;
+	}
+
+	void Ball::whereAmI() {
+		
+		if (circle->getPosition().y >800) {
+			
+			lastHitBy->looseHealth();
+			cout << lastHitBy;
+			reset();
+		}
 	}
 	void Ball::checkBorders() {
 		if (GetGlobalBounds().top <= 0) {
@@ -63,7 +78,6 @@ static const float BALL_VELOCITY = 400.f;
 			flipXVel();
 			sound.play();
 		}
-
 	}
 
 	FloatRect Ball::GetGlobalBounds() {

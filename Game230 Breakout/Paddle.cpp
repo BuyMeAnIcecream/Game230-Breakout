@@ -36,15 +36,28 @@ void Paddle::update(float dt) {
 		return;
 	//detect collision
 	rect->setPosition(tempPos);
-	if (checkCollision(ball))
+	if (checkCollision(ball)) {
 		ball->bounceOffPaddle(rect->getPosition().x + PADDLE_LENGTH / 2);
-	if (ball->sited && PlayerControl::checkActionButton()) 		ball->sendFlying();
-	if(ball->sited)		ball->stayHere(Vector2f(rect->getPosition().x + PADDLE_LENGTH/2, rect->getPosition().y - BALL_RADIUS));
-	displayHealth(Vector2f(rect->getPosition().x + PADDLE_LENGTH/2,rect->getPosition().y + PADDLE_THICKNESS / 2));
+		ball->lastHitBy = this->player;
+	}
+	
+	if (ball->sited && PlayerControl::checkActionButton()) {
+		ball->sendFlying();
+		
+	}
+	if (ball->sited) {
+		ball->stayHere(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y - BALL_RADIUS));
+		ball->lastHitBy = this->player;
+	}
+	player->updateHealthText(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y - PADDLE_THICKNESS / 2));
 }
-void Paddle::displayHealth(Vector2f position ){
-	player->displayHealth(position);
-}
+
+void Paddle::render(RenderWindow* window) {
+	window->draw(*rect);
+	//std::cout << "here";
+    window->draw(player->t);
+} 
+
 
 void Paddle::reset() {
 	rect->setPosition(hereIStart);

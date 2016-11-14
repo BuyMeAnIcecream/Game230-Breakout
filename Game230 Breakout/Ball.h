@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "MaShape.h"
+#include "Player.h"
 //#include "Paddle.h"
 class Ball :public MaShape {
 private:
@@ -14,9 +15,10 @@ private:
 	Sound sound;
 	float vel;
 	Vector2f direction;
-	
+	void whereAmI();
 	
 public:
+	Player* lastHitBy;
 	bool sited;
 	FloatRect GetGlobalBounds();
 	Ball();

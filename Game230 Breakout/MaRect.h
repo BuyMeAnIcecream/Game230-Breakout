@@ -13,6 +13,6 @@ public:
 	MaRect(Vector2f pos, float thic, float length, Ball* b);
 //	void reset();
 	virtual void update(float dt) =0;
-	void render(RenderWindow* window);
+	virtual void render(RenderWindow* window);
 	
 };

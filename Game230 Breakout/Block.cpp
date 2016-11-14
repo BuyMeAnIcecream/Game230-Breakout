@@ -6,7 +6,6 @@ void Block::update(float dt) {
 		takeDamage(1);
 	}
 	//	ball->BounceOff(rect->getPosition().y + PADDLE_LENGTH / 2);      TODO flip direction
-	
 }
 
 Block::Block(Vector2f pos, float thic, float length, Ball* b, int health):MaRect::MaRect(pos, thic, length, b) {
