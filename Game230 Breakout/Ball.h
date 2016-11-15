@@ -18,6 +18,7 @@ private:
 	void whereAmI();
 	
 public:
+	int score;
 	Player* lastHitBy;
 	bool sited;
 	FloatRect GetGlobalBounds();

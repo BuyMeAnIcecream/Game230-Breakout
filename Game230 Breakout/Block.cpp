@@ -10,9 +10,16 @@ void Block::update(float dt) {
 
 Block::Block(Vector2f pos, float thic, float length, Ball* b, int health):MaRect::MaRect(pos, thic, length, b) {
 	this->health = health;
+	endMyLife = false;
 	rect->setPosition(pos);
 }
 
 void Block::takeDamage(int d) {
 	health -= d;
+	if (health <= 0) {
+		ball->score++;
+		endMyLife = true;
+		
+	}
+
 }

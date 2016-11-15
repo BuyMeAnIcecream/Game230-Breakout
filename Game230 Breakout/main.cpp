@@ -22,19 +22,48 @@ public:
 	MaRect* pad1;
 	MaRect* pad2;
 	RenderWindow* window;
-	GameManager(Ball* b, Ball*b2, MaRect* p1, MaRect* p2, RenderWindow* win) {
+	Text text;
+	
+	/*GameManager(Ball* b, Ball*b2, MaRect* p1, MaRect* p2, RenderWindow* win) {*/
+	GameManager(Ball* b, MaRect* p1) {
 		ball = b;
-		ball2 = b2;
+		//ball2 = b2;
 		pad1 = p1;
-		pad2 = p2;
-		window = win;
-		pressToRestart = false;
+		//	pad2 = p2;
+	//		window = win;
+	//		pressToRestart = false;
+	
+		text.setFont(font);
+		text.setFillColor(Color::White);
+		text.setCharacterSize(50);
+		text.setPosition(Vector2f(100, 10));
+		b->score = 0;
+	}
+
+	void reset() {
+		ball->score = 0;
+	}
+
+	void displayScore(RenderWindow* window) {
+		text.setString(to_string(ball->score));
+		window->draw(text);
 	}
 
 	bool anybodyAlive() {
 		if (pad1 == NULL && pad2 == NULL)
 			return true;
 	};
+
+	bool checkWin(int objectsLeft) {
+		if (objectsLeft < 2) return true;
+		return false;
+	}
+
+	bool checkLoose() {
+		if (pad1 == NULL) return true;
+		return false;
+	}
+
 /*
 	void CheckWin() {
 
@@ -138,6 +167,7 @@ int main()
 //	Ball* b2 = new Ball();
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;
+	GameManager* gm = new GameManager(b,p1);
 	vector<MaShape*> sceneObjects;
 	sceneObjects.push_back(b);
 	sceneObjects.push_back(p1);
@@ -160,8 +190,12 @@ int main()
 			ms->update(dt);
 			ms->render(&window);
 		}
-
+		gm->displayScore(&window);
+		
 		window.display();
+
+		if (gm->checkLoose())
+			cout << "endspiel";
 		/*
 		if (gm->pressToRestart) {
 			gm->PreRestart();
