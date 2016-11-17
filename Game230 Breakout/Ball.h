@@ -10,7 +10,7 @@ class Ball :public MaShape {
 private:
 	CircleShape* circle;
 	Vector2f position;
-	Texture texture;
+	Texture texture1;
 	SoundBuffer buf;
 	Sound sound;
 	float vel;

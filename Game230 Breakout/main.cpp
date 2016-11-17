@@ -163,7 +163,17 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
 	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b, new Player(3, &font));
-	Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
+	BlockType* weak = new BlockType; 
+	
+	//strong block
+	weak->health = 1; 
+	weak->length = BLOCK_LENGTH; 
+	weak->thickness = BLOCK_THICKNESS; 
+	weak->texture1.loadFromFile ("broken_brick.png");
+	weak->texture2.loadFromFile("brick.png");
+
+	//Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
+	Block* block = new Block(Vector2f(100, 50), b, weak);
 //	Ball* b2 = new Ball();
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;

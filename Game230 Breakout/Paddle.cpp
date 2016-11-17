@@ -27,6 +27,7 @@ public:
 Paddle::Paddle(Vector2f pos, float thic, float length, Ball* b, Player* p):MaRect::MaRect(pos, thic, length, b) {
 	player = p;
 	hereIStart = pos;
+	rect->setFillColor(sf::Color::Blue);
 }
 void Paddle::update(float dt) {
 	this->velocity = Vector2f( paddleSpeed * PlayerControl::checkControlInputP1(),0);//PlayerControl::checkControlInputP1();

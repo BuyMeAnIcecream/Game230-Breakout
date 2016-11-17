@@ -13,8 +13,8 @@ static const float BALL_VELOCITY = 400.f;
 //		p2 = pad2;
 //		brick = br;
 		reset();
-		texture.loadFromFile("ball.png");
-		circle->setTexture(&texture);
+		texture1.loadFromFile("ball.png");
+		circle->setTexture(&texture1);
 		buf.loadFromFile("bounce.ogg");
 		sound.setBuffer(buf);
 	}

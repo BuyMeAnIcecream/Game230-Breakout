@@ -8,18 +8,36 @@ void Block::update(float dt) {
 	//	ball->BounceOff(rect->getPosition().y + PADDLE_LENGTH / 2);      TODO flip direction
 }
 
-Block::Block(Vector2f pos, float thic, float length, Ball* b, int health):MaRect::MaRect(pos, thic, length, b) {
-	this->health = health;
+Block::Block(Vector2f pos, Ball* b,/*, float thic, float length,  int health*/BlockType* bt):MaRect::MaRect(pos,  bt->length, bt->thickness, b) {
+	this->health = bt->health;
+//	texture1 = bt->texture1;
 	endMyLife = false;
 	rect->setPosition(pos);
+//	rect->setTexture(&bt->texture1);
+	texture1 = &bt->texture1;
+	texture2 = &bt->texture2;
+	updateTexture();
+}
+
+Block::~Block()
+{
+	//todo
+}
+
+void Block::updateTexture()
+{
+	if (health == 1)
+		rect->setTexture(texture1);
+	if (health == 2)
+		rect->setTexture(texture2);
 }
 
 void Block::takeDamage(int d) {
 	health -= d;
+	updateTexture();
 	if (health <= 0) {
 		ball->score++;
 		endMyLife = true;
 		
 	}
-
 }

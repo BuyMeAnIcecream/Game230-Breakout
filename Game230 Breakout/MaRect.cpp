@@ -5,7 +5,7 @@ using namespace std;
 
 	MaRect::MaRect(Vector2f pos, float thic, float length, Ball* b) {
 		rect = new sf::RectangleShape(Vector2f(thic, length));
-		rect->setFillColor(sf::Color::Blue);
+		
 		rect->setPosition(pos);
 		ball = b;
 		paddleSpeed = PADDLE_SPEED;
