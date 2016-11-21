@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Constants.h"
 using namespace sf;
 
 Player::Player(int health, Font* font)
@@ -28,6 +28,7 @@ void Player::looseHealth()
 	if (lives < 0)
 		isAlive = false;
 	t.setString(std::to_string(lives));
+	loose_hp_sound.play();
 }
 
 void Player::updateHealthText(sf::Vector2f position)

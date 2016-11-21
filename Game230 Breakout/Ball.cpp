@@ -5,7 +5,7 @@ static const float BALL_VELOCITY = 400.f;
 	Ball::Ball() {
 		circle = new sf::CircleShape(BALL_RADIUS);
 		circle->setFillColor(sf::Color::Red);
-		circle->setOrigin(Vector2f(circle->getRadius(), circle->getRadius()));
+		//circle->setOrigin(Vector2f(circle->getRadius(), circle->getRadius()));
 		vel = BALL_VELOCITY;
 //		direction = randomizeAngle();
 		srand(time(NULL));
@@ -15,8 +15,8 @@ static const float BALL_VELOCITY = 400.f;
 		reset();
 		texture1.loadFromFile("ball.png");
 		circle->setTexture(&texture1);
-		buf.loadFromFile("bounce.ogg");
-		sound.setBuffer(buf);
+//		buf.loadFromFile("bounce.ogg");
+//		sound.setBuffer(buf);
 	}
 	
 	Vector2f Ball::getPosition() {
@@ -63,7 +63,8 @@ static const float BALL_VELOCITY = 400.f;
 	void Ball::checkBorders() {
 		if (GetGlobalBounds().top <= 0) {
 			flipYVel();
-			sound.play();
+//			sound.play();																																				TODO
+			wall_hit.play();
 		}
 		/*if (circle->getGlobalBounds().top + circle->getGlobalBounds().height >= SCREEN_HEIGHT) {
 			flipYVel();
@@ -71,12 +72,14 @@ static const float BALL_VELOCITY = 400.f;
 		}*/
 		if (GetGlobalBounds().left <= 0) {
 			flipXVel();
-			sound.play();
+//			sound.play();																																	TODO
+			wall_hit.play();
 		}
 
 		if (GetGlobalBounds().left + GetGlobalBounds().width >= SCREEN_WIDTH) {
 			flipXVel();
-			sound.play();
+//			sound.play();																																		TODO
+			wall_hit.play();
 		}
 	}
 
@@ -94,14 +97,16 @@ static const float BALL_VELOCITY = 400.f;
 		float xRatio = xDifference / (PADDLE_LENGTH / 2);
 		direction.x = -xRatio;
 		flipYVel();
-		sound.play();
+//		sound.play();																																				TODO
+		paddle_hit.play();
 	}
 
 	void Ball::bounceOffBlock(RectangleShape* rs) {
 		if (rs->getPosition().x + BLOCK_LENGTH <= this->getPosition().x) flipXVel();
-		else if (rs->getPosition().x >= this->getPosition().x) flipXVel();
+		else if (rs->getPosition().x  >= this->getPosition().x) flipXVel();
 		else flipYVel();
-		sound.play();
+//		sound.play();																																							
+		
 	}
 	void Ball::flipYVel() {
 		direction.y = -direction.y;

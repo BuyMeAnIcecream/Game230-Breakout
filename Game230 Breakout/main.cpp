@@ -8,10 +8,24 @@
 #include <SFML/System.hpp>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Main.hpp>
+#include <memory>
 
 using namespace sf;
 using namespace std;
 
+sf::Font font;
+sf::Sound crack_sound;
+sf::SoundBuffer crack_sb;
+sf::Sound destroy_sound;
+sf::SoundBuffer destroy_sb;
+sf::Sound paddle_hit;
+sf::SoundBuffer pedalt_hit_sb;
+sf::Sound wall_hit;
+sf::SoundBuffer wall_hit_sb;
+sf::Sound win_sound;
+sf::SoundBuffer win_sb;
+sf::Sound loose_hp_sound;
+sf::SoundBuffer loose_hp_sb;
 
 
 class GameManager {
@@ -24,13 +38,13 @@ public:
 	RenderWindow* window;
 	Text text;
 	
-	/*GameManager(Ball* b, Ball*b2, MaRect* p1, MaRect* p2, RenderWindow* win) {*/
+	/*GameManager(Ball* b, Ball*b2, MaRect* p1, MaRect* p2, RenderWindow* win_sound) {*/
 	GameManager(Ball* b, MaRect* p1) {
 		ball = b;
 		//ball2 = b2;
 		pad1 = p1;
 		//	pad2 = p2;
-	//		window = win;
+	//		window = win_sound;
 	//		pressToRestart = false;
 	
 		text.setFont(font);
@@ -153,9 +167,43 @@ public:
 	*/
 };
 
+static void loadSounds()
+{
 
+	crack_sb.loadFromFile("audio/crack.wav");
+	crack_sound.setBuffer(crack_sb);
+	destroy_sb.loadFromFile("audio/destroyl.wav");
+	destroy_sound.setBuffer(destroy_sb);
+	
+	pedalt_hit_sb.loadFromFile("audio/hit_ball.wav"); 
+	paddle_hit.setBuffer(pedalt_hit_sb);
+	wall_hit_sb.loadFromFile("audio/hit_wall.wav");
+	wall_hit.setBuffer(wall_hit_sb);
+	win_sb.loadFromFile("audio/win.mp3");
+	win_sound.setBuffer(win_sb);
+	loose_hp_sb.loadFromFile("audio/lose.wav");
+	loose_hp_sound.setBuffer(loose_hp_sb);
 
+	//Block::crack_sb.loadFromFile("audio\crack.mp3");
 
+}
+BlockType weak;
+BlockType hard;
+static void initialiseBlockTypes() {
+	weak.health = 1;
+	weak.length = BLOCK_LENGTH;
+	weak.thickness = BLOCK_THICKNESS;
+	weak.color = Color::Magenta;
+	weak.texture1.loadFromFile("broken_brick.png");
+	weak.texture2.loadFromFile("brick.png");
+
+	hard.health = 1;
+	hard.length = BLOCK_LENGTH;
+	hard.thickness = BLOCK_THICKNESS;
+	hard.color = Color::Magenta;
+	hard.texture1.loadFromFile("broken_brick.png");
+	hard.texture2.loadFromFile("brick.png");
+}
 
 int main()
 {
@@ -163,26 +211,54 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 	Ball* b = new Ball();
 	Paddle* p1 = new Paddle(Vector2f(SCREEN_WIDTH/2 , SCREEN_HEIGHT - PADDLE_THICKNESS),  PADDLE_LENGTH, PADDLE_THICKNESS, b, new Player(3, &font));
-	BlockType* weak = new BlockType; 
+	//BlockType* weakBlock = new BlockType; 
 	
 	//strong block
-	weak->health = 1; 
-	weak->length = BLOCK_LENGTH; 
-	weak->thickness = BLOCK_THICKNESS; 
-	weak->texture1.loadFromFile ("broken_brick.png");
-	weak->texture2.loadFromFile("brick.png");
-
+	/*weakBlock->health = 1; 
+	weakBlock->length = BLOCK_LENGTH; 
+	weakBlock->thickness = BLOCK_THICKNESS;
+	weakBlock->color = Color::Magenta;
+	weakBlock->texture1.loadFromFile ("broken_brick.png");
+	weakBlock->texture2.loadFromFile("brick.png");*/
+	
+	initialiseBlockTypes();
 	//Block* block = new Block(Vector2f(BLOCK_LENGTH, BLOCK_THICKNESS), 100, 50, b, 1);
-	Block* block = new Block(Vector2f(100, 50), b, weak);
-//	Ball* b2 = new Ball();
+
+	Block* block1 = new Block(Vector2f(100, 50), b, &weak);
+	Block* block2= new Block(Vector2f(200, 50), b, &weak);
+	Block* block3 = new Block(Vector2f(300, 50), b, &weak);
+	Block* block4 = new Block(Vector2f(400, 50), b, &weak);
+	Block* block5 = new Block(Vector2f(500, 50), b, &weak);
+//	Block::loadBrickSounds();
+	loadSounds();
+
+
+	//INIT BLOCK TYPES
+	
+
+
+
 	//GameManager* gm = new GameManager(b, b2, p1, p2, &window);
 	Clock clock;
 	GameManager* gm = new GameManager(b,p1);
-	vector<MaShape*> sceneObjects;
-	sceneObjects.push_back(b);
-	sceneObjects.push_back(p1);
+//	vector<MaShape*> sceneObjects;
+	vector<unique_ptr<Block>> blocks;
+	//sceneObjects.push_back(b);
+	//sceneObjects.push_back(p1);
 	//sceneObjects.push_back(p2);
-	sceneObjects.push_back(block);
+	//sceneObjects.push_back(block1);
+	/*sceneObjects.push_back(block2);
+	sceneObjects.push_back(block3);
+	sceneObjects.push_back(block4);
+	sceneObjects.push_back(block5);
+	*/
+	unique_ptr<Block> bl ( new Block(Vector2f(100 , 50 ), b, &weak));
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 3; j++) {
+			unique_ptr<Block> block(new Block(Vector2f(100 * i, 50 * j), b, &weak));
+			blocks.push_back(std::move(block));
+		}
+	}
 	while (window.isOpen())
 	{
 
@@ -195,11 +271,22 @@ int main()
 		window.clear();
 		float dt = clock.restart().asSeconds();
 
-		for each (MaShape* ms in sceneObjects)
+		/*for each (MaShape* ms in sceneObjects)
 		{
 			ms->update(dt);
 			ms->render(&window);
+		
+		}*/
+
+		for (auto & block: blocks) {
+			block->update(dt);
+			block->render(&window);
 		}
+
+		b->update(dt);
+		b->render(&window);
+		p1->update(dt);
+		p1->render(&window);
 		gm->displayScore(&window);
 		
 		window.display();

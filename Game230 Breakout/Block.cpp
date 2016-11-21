@@ -17,6 +17,8 @@ Block::Block(Vector2f pos, Ball* b,/*, float thic, float length,  int health*/Bl
 	texture1 = &bt->texture1;
 	texture2 = &bt->texture2;
 	updateTexture();
+
+	rect->setFillColor(bt->color);
 }
 
 Block::~Block()
@@ -32,12 +34,30 @@ void Block::updateTexture()
 		rect->setTexture(texture2);
 }
 
+void Block::crack()
+{
+	crack_sound.play();
+}
+
+void Block::destroy()
+{
+	destroy_sound.play();
+}
+
+
 void Block::takeDamage(int d) {
 	health -= d;
 	updateTexture();
 	if (health <= 0) {
 		ball->score++;
 		endMyLife = true;
-		
+		destroy();
+		return;
 	}
+	crack();
+
 }
+
+extern BlockType weak;
+extern BlockType hard;
+

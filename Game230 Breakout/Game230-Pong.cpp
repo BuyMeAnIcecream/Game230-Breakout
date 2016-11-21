@@ -22,12 +22,12 @@ public:
 	Paddle* pad1;
 	Paddle* pad2;
 	RenderWindow* window;
-	GameManager(Ball* b,Ball*b2, Paddle* p1, Paddle* p2, RenderWindow* win) {
+	GameManager(Ball* b,Ball*b2, Paddle* p1, Paddle* p2, RenderWindow* win_sound) {
 		ball = b;
 		ball2 = b2;
 		pad1 = p1;
 		pad2 = p2;
-		window = win;
+		window = win_sound;
 		pressToRestart = false;
 	}
 	

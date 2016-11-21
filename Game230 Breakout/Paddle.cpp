@@ -47,7 +47,7 @@ void Paddle::update(float dt) {
 		
 	}
 	if (ball->sited) {
-		ball->stayHere(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y - BALL_RADIUS));
+		ball->stayHere(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y -2* BALL_RADIUS));
 		ball->lastHitBy = this->player;
 	}
 	player->updateHealthText(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y - PADDLE_THICKNESS / 2));
