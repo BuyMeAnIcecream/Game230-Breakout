@@ -23,6 +23,8 @@ Block::Block(Vector2f pos, Ball* b,/*, float thic, float length,  int health*/Bl
 
 Block::~Block()
 {
+	texture1 = NULL;
+	texture2 = NULL;
 	//todo
 }
 
@@ -44,6 +46,12 @@ void Block::destroy()
 	destroy_sound.play();
 }
 
+bool Block::operator==(const Block & b)
+{
+	return this == &b;
+	
+}
+
 
 void Block::takeDamage(int d) {
 	health -= d;
@@ -57,6 +65,8 @@ void Block::takeDamage(int d) {
 	crack();
 
 }
+
+
 
 extern BlockType weak;
 extern BlockType hard;

@@ -14,6 +14,10 @@ static const float BLOCK_LENGTH = 60.f;
 static const float BLOCK_THICKNESS = 20.f;
 static const int BALL_RADIUS = 10;
 
+//static const int WEAK_BLOCK_HEALTH= 1;
+
+
+
 extern sf::Font font;
 extern sf::Sound crack_sound;
 extern sf::SoundBuffer crack_sb;

@@ -1,10 +1,6 @@
 #pragma once
 #include "MaRect.h"
 
-
-
-
-
 struct BlockType {
 	Texture texture1;
 	Texture texture2;
@@ -20,13 +16,13 @@ private:
 	Texture* texture1;
 	Texture* texture2;
 	int health;
-	bool endMyLife;
+	
 	Color color;
 	
 public:
 	
 
-
+	bool endMyLife;
 	void takeDamage(int d);
 	Block(Vector2f pos, Ball* b, BlockType* bt);
 	~Block();
@@ -34,6 +30,7 @@ public:
 	void updateTexture();
 	void crack();
 	void destroy();
+	bool operator ==(const Block &b);
 
 //	static void loadBrickSounds();
 		
