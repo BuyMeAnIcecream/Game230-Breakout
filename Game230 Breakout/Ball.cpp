@@ -102,10 +102,11 @@ static const float BALL_VELOCITY = 400.f;
 	}
 
 	void Ball::bounceOffBlock(RectangleShape* rs) {
+		//right
 		if (rs->getPosition().x + BLOCK_LENGTH <= this->getPosition().x) flipXVel();
 		else if (rs->getPosition().x  >= this->getPosition().x) flipXVel();
 		else flipYVel();
-//		sound.play();																																							
+		//left 
 		
 	}
 	void Ball::flipYVel() {

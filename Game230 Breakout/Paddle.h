@@ -7,6 +7,7 @@ private:
 	Player* player;
 	void updateHealthText(Vector2f position);
 public:
+	bool isAlive;
 	Paddle(Vector2f pos, float thic, float length, Ball* b, Player* p);
 	void MaRect::update(float dt);
 	void reset();

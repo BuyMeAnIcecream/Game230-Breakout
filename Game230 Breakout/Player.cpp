@@ -27,6 +27,8 @@ void Player::looseHealth()
 	lives--;
 	if (lives < 0)
 		isAlive = false;
+	
+	
 	t.setString(std::to_string(lives));
 	loose_hp_sound.play();
 }

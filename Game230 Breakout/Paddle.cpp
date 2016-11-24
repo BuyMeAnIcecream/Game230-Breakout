@@ -25,6 +25,7 @@ public:
 	}
 };
 Paddle::Paddle(Vector2f pos, float thic, float length, Ball* b, Player* p):MaRect::MaRect(pos, thic, length, b) {
+	isAlive = true;
 	player = p;
 	hereIStart = pos;
 	rect->setFillColor(sf::Color::Blue);
@@ -50,7 +51,11 @@ void Paddle::update(float dt) {
 		ball->stayHere(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y -2* BALL_RADIUS));
 		ball->lastHitBy = this->player;
 	}
+	
+		
 	player->updateHealthText(Vector2f(rect->getPosition().x + PADDLE_LENGTH / 2, rect->getPosition().y - PADDLE_THICKNESS / 2));
+	if (!player->isAlive)
+		this->isAlive = false;
 }
 
 void Paddle::render(RenderWindow* window) {
